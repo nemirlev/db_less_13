@@ -1,31 +1,39 @@
+-- Create a new table named "test_table"
+CREATE TABLE test_table (
+    id SERIAL PRIMARY KEY,
+    data VARCHAR(255)
+);
 
-  -- Create base table
+-- Insert 20 rows of dummy data into the table
+INSERT INTO test_table (data)
+VALUES
+    ('dummy data 1'),
+    ('dummy data 2'),
+    ('dummy data 3'),
+    ('dummy data 4'),
+    ('dummy data 5'),
+    ('dummy data 6'),
+    ('dummy data 7'),
+    ('dummy data 8'),
+    ('dummy data 9'),
+    ('dummy data 10'),
+    ('dummy data 11'),
+    ('dummy data 12'),
+    ('dummy data 13'),
+    ('dummy data 14'),
+    ('dummy data 15'),
+    ('dummy data 16'),
+    ('dummy data 17'),
+    ('dummy data 18'),
+    ('dummy data 19'),
+    ('dummy data 20');
 
-  -- BOOKS table
-  --	 	book_id	  - ID of book (primary key)
-  --		title 	  - title of book
-  --		category  - book's category
-  --		author	  - book's author
-  CREATE TABLE t_books (
-      book_id 		INT 			      NOT NULL,
-      title 			VARCHAR(100) 	NOT NULL,
-      category		VARCHAR(30),
-      author 			VARCHAR(100)   NOT NULL,
-      is_active   VARCHAR(1)     NOT NULL,
-      CONSTRAINT t_books_id_pk PRIMARY KEY (book_id)
-  );
 
-  -- insert base data
-  UPDATE t_books
-    SET title = 'Oracle Core', category = 'Oracle Database', author = 'Jonathan Lewis', is_active = 'Y'
-    WHERE book_id = 3001;
+-- To test if data is coming from the master or slave database in PostgreSQL, you can use the following SQL query:
 
-  UPDATE t_books
-    SET title = 'Expert Oracle Database Architecture', category = 'Oracle Database', author = 'Tom Kyte', is_active = 'Y'
-    WHERE book_id = 2025;
+-- Check the current database role
+SELECT pg_is_in_recovery();
 
-  UPDATE t_books
-    SET title = 'SQL and Relational Theory', category = 'Relational Databases', author = 'C.J. Date', is_active = 'Y'
-    WHERE book_id = 190;
-
-  COMMIT;
+-- This query uses the pg_is_in_recovery() function, which returns true if the current database is a slave and false if
+-- it is the master. For example, if the query returns false, it means that the data you are querying is coming
+-- from the master database.
