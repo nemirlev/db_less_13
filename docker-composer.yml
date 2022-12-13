@@ -1,0 +1,69 @@
+version: "3.9"
+services:
+  master:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_DB: "teacher"
+      POSTGRES_USER: "teacher"
+      POSTGRES_PASSWORD: "teacher"
+      REPLICATION_MODE: "master"
+      REPLICATION_USER: "replicator"
+      REPLICATION_PASS: "replpassword"
+    volumes:
+      - master:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  replica1:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_DB: "teacher"
+      POSTGRES_USER: "teacher"
+      POSTGRES_PASSWORD: "teacher"
+      REPLICATION_MODE: "slave"
+      REPLICATION_HOST: "master"
+      REPLICATION_USER: "replicator"
+      REPLICATION_PASS: "replpassword"
+    volumes:
+      - replica1:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    depends_on:
+      - master
+  replica2:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_DB: "teacher"
+      POSTGRES_USER: "teacher"
+      POSTGRES_PASSWORD: "teacher"
+      REPLICATION_MODE: "slave"
+      REPLICATION_HOST: "master"
+      REPLICATION_USER: "replicator"
+      REPLICATION_PASS: "replpassword"
+    volumes:
+      - replica2:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    depends_on:
+      - master
+  replica3:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_DB: "teacher"
+      POSTGRES_USER: "teacher"
+      POSTGRES_PASSWORD: "teacher"
+      REPLICATION_MODE: "slave"
+      REPLICATION_HOST: "master"
+      REPLICATION_USER: "replicator"
+      REPLICATION_PASS: "replpassword"
+    volumes:
+      - replica3:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    depends_on:
+      - master
+
+volumes:
+  master:
+  replica1:
+  replica2:
+  replica3:
